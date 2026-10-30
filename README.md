@@ -29,8 +29,79 @@ STEP-7: The junction character where these two meet forms the cipher character.
 STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
-## PROGRAM
+## PROGRAM:
+```
+#include <stdio.h>
+#include <string.h>
+
+// Function to perform Vigenere encryption
+void vigenereEncrypt(char *text, const char *key)
+{
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+
+    for (int i = 0; i < textLen; i++)
+    {
+        char c = text[i];
+
+        if (c >= 'A' && c <= 'Z')
+        {
+            text[i] = ((c - 'A' + key[i % keyLen] - 'A') % 26) + 'A';
+        }
+        else if (c >= 'a' && c <= 'z')
+        {
+            text[i] = ((c - 'a' + key[i % keyLen] - 'A') % 26) + 'a';
+        }
+    }
+}
+
+// Function to perform Vigenere decryption
+void vigenereDecrypt(char *text, const char *key)
+{
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+
+    for (int i = 0; i < textLen; i++)
+    {
+        char c = text[i];
+
+        if (c >= 'A' && c <= 'Z')
+        {
+            text[i] = ((c - 'A' - (key[i % keyLen] - 'A') + 26) % 26) + 'A';
+        }
+        else if (c >= 'a' && c <= 'z')
+        {
+            text[i] = ((c - 'a' - (key[i % keyLen] - 'A') + 26) % 26) + 'a';
+        }
+    }
+}
+
+int main()
+{
+    const char *key = "KEY";
+    char message[] = "SUGAVELAN";
+
+    printf("Simulation of Vigenere Cipher\n");
+    printf("Input Message: %s\n", message);
+
+    vigenereEncrypt(message, key);
+    printf("Encrypted Message: %s\n", message);
+
+    vigenereDecrypt(message, key);
+    printf("Decrypted Message: %s\n", message);
+
+    return 0;
+}
+```
 
 ## OUTPUT
+```
+Simulation of Vigenere Cipher
+
+Input Message: KIRUTHIKA
+Encrypted Message: CIKEZOVKX
+Decrypted Message: KIRUTHIKA
+```
 
 ## RESULT
+The Vigenere Cipher substitution technique was implemented successfully using C program, and the original message was encrypted and decrypted successfully.
